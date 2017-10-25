@@ -11,9 +11,9 @@ export default function FeaturedProduct( { addToCart, description, logo, name, o
 				<img
 					alt={ `${ name } logo` }
 					className="featured-product__logo"
-					src={ " {logo} " /* product logo */  }
+					src= {logo}
 				/>
-			<Link to="{ `/details/${name}` }">
+			<Link to={ `/details/${name}` }>
 				<h3 className="featured-product__name">{ name }</h3>
 			</Link>
 			</div>
