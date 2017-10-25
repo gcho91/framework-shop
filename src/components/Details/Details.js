@@ -6,42 +6,46 @@ import "./Details.css"
 
 import { addToCart } from "../../ducks/product";
 
-export function Details( { addToCart, history, product } ) {
-	const {
-		  description
-		, id
-		, logo
-		, name
-		, price
-	} = product;
+export function Details( { addToCart, history, products, match } ) {
 
-	function addToCartAndRedirect() {
-		addToCart( id );
-		history.goBack();
-	}
+  const product = products.find( product => product.name === match.params.name )
 
-	return (
-		<div className="details">
-			<h3 className="details__back-to-shop"><Link to="/shop">Back to shop</Link></h3>
-			<img
-				alt={ `${ name } logo` }
-				className="details__logo"
-				src={ logo }
-			/>
-			<h1 className="details__name">{ name }</h1>
-			<p className="details__description">{ description }</p>
-			<button
-				className="details__buy"
-				onClick={ addToCartAndRedirect }
-			>
-				Buy now for ${ price }!
-			</button>
-		</div>
-	);
+  const {
+    description,
+    id,
+    logo,
+    name,
+    price,
+  } = product;
+
+  function addToCartAndRedirect() {
+    addToCart( id );
+    history.goBack();
+  }
+  return (
+    <div className="details">
+      <Link to="/shop">
+        <h3 className="details__back-to-shop">Back to shop</h3>
+      </Link>
+      <img
+        alt={ name }
+        className="details__logo"
+        src={ logo }
+      />
+    <h1 className="details__name">{ name }</h1>
+      <p className="details__description">{ description }</p>
+      <button
+        className="details__buy"
+        onClick={ addToCartAndRedirect }
+      >
+        Buy now for ${ price }!
+      </button>
+    </div>
+  );
 }
 
-function mapStateToProps( state, ownProps ) {
-	return { product: state.products.find( product => product.name === ownProps.match.params.name ) };
+function mapStateToProps( state ) {
+  return { products: state.products };
 }
 
 export default connect( mapStateToProps, { addToCart } )( Details );

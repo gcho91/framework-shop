@@ -6,6 +6,8 @@ import Nav from "./Nav/Nav";
 
 import router from "../router";
 
+
+
 export function App( { children } ) {
 	return (
 		<div className="app">
